@@ -26,12 +26,17 @@ class Player
     {
         return $this->coins;
     }
+
+    public function odds(Player $player) : float
+    {
+        return round($this->bank() / ($this->bank() + $player->bank()) * 100, 2);
+    }
 }
 
 class Game
 {
-    protected Player $player1;
-    protected Player $player2;
+    public Player $player1;
+    public Player $player2;
     protected int $flips = 1;
 
     public function __construct(Player $player1, Player $player2)
@@ -47,6 +52,16 @@ class Game
     }
 
     public function start()
+    {
+        echo <<<EOT
+        {$this->player1->name} шансы на победу: {$this->player1->odds($this->player2)}%.
+        {$this->player2->name} шансы на победу: {$this->player2->odds($this->player1)}%.
+        EOT;
+
+        $this->play();
+    }
+
+    public function play()
     {
         while(true){
             // Если орел, п1 получает монету, п2 теряет
@@ -79,8 +94,8 @@ class Game
         echo <<<EOT
             Game over.
 
-            {$this->player1->name}: {$this->player1->bank()}
-            {$this->player2->name}: {$this->player2->bank()}
+            {$this->player1->name}: {$this->player1->bank()} монет.
+            {$this->player2->name}: {$this->player2->bank()} монет.
 
             Победитель: {$this->winner()->name}.
 
@@ -90,7 +105,7 @@ class Game
 }
 
 $game = new Game(
-    new Player("Joe", 100),
+    new Player("Joe", 10000),
     new Player("Jane", 100),
 );
 
