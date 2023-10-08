@@ -2,24 +2,52 @@
 
 declare(strict_types=1);
 
+namespace App\Models;
+
 class Game
 {
+    /**
+     * Игрок номер один.
+     * @var Player
+     */
     public Player $player1;
+
+    /**
+     * Игрок номер два.
+     * @var Player
+     */
     public Player $player2;
+
+    /**
+     * Количество подбрасований.
+     * @var int
+     */
     protected int $flips = 1;
 
+    /**
+     * Инициализация игры.
+     * @param Player $player1
+     * @param Player $player2
+     */
     public function __construct(Player $player1, Player $player2)
     {
         $this->player1 = $player1;
         $this->player2 = $player2;
     }
 
+    /**
+     * Подбрасываем монету.
+     * @return string
+     */
     public function flip(): string
     {
-        // Подбросить монету
         return rand(0, 1) ? "орел" : "решка";
     }
 
+    /**
+     * Старт игры.
+     * @return void
+     */
     public function start(): void
     {
         echo <<<EOT
@@ -30,7 +58,11 @@ class Game
         $this->play();
     }
 
-    public function play()
+    /**
+     * Процесс игры.
+     * @return NULL
+     */
+    public function play(): NULL
     {
         while (true) {
             // Если орел, п1 получает монету, п2 теряет
@@ -50,12 +82,20 @@ class Game
         }
     }
 
+    /**
+     * Кто победитель?
+     * Побеждает тот у кого больше монет.
+     * @return Player
+     */
     public function winner(): Player
     {
-        //Победитель тот у кого больше монет.
         return $this->player1->bank() > $this->player2->bank() ? $this->player1 : $this->player2;
     }
 
+    /**
+     * Вывод результаты игры.
+     * @return void
+     */
     public function end(): void
     {
         echo <<<EOT
