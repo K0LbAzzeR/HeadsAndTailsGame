@@ -6,9 +6,14 @@ namespace App\Controller;
 
 use App\Models\Game;
 use App\Models\Player;
+
 class Main
 {
-    public static function run(): void
+    /**
+     * Launching the application
+     * @return void
+     */
+    public static function launchingApplication(): void
     {
         $game = new Game(
             new Player("Joe", 10000),

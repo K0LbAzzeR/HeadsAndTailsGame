@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Controller\Main;
+use App\Controller\Main as AppMainController;
 
 include_once __DIR__ . "/vendor/autoload.php";
 
-Main::run();
+// Launching the application
+AppMainController::launchingApplication();
