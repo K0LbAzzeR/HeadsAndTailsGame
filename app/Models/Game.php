@@ -72,9 +72,9 @@ class Game
             // Если орел, п1 получает монету, п2 теряет
             // Если решка п1 теряет монету, п2 получает
             if ($this->flip() == "орел") {
-                $this->player1->point($this->player2);
+                $this->player1->сhangeNumberOfCoinsPlayersHave($this->player2);
             } else {
-                $this->player2->point($this->player1);
+                $this->player2->сhangeNumberOfCoinsPlayersHave($this->player1);
             }
 
             // Если у кого-то кол-во монет будет 0, то игра окончена.

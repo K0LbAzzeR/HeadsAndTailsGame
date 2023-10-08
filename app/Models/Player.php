@@ -31,14 +31,14 @@ class Player
     }
 
     /**
-     * Изменение количества монет у игроков.
-     * @param Player $player
+     * Change the number of coins players have.
+     * @param Player $player Player
      * @return void
      */
-    public function point(Player $player): void
+    public function сhangeNumberOfCoinsPlayersHave(Player $player): void
     {
-        $this->numberOfCoinsPlayerHas_++;
-        $player->numberOfCoinsPlayerHas_--;
+        $this->setNumberOfCoinsPlayerHas($this->getNumberOfCoinsPlayerHas() + 1);
+        $player->setNumberOfCoinsPlayerHas($player->getNumberOfCoinsPlayerHas() - 1);
     }
 
     /**
