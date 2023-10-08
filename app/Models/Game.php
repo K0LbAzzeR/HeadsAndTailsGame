@@ -54,9 +54,9 @@ class Game
     {
         ViewGame::showPlayersChancesWinning(
             $this->player1->getPlayerName(),
-            $this->player1->odds($this->player2),
+            $this->player1->сalculatePlayersChancesOfWinning($this->player2),
             $this->player2->getPlayerName(),
-            $this->player2->odds($this->player1)
+            $this->player2->сalculatePlayersChancesOfWinning($this->player1)
         );
 
         $this->play();

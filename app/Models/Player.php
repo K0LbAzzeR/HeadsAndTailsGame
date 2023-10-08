@@ -51,11 +51,11 @@ class Player
     }
 
     /**
-     * Шанс победы у игрока.
-     * @param Player $player
+     * Calculate the player's chances of winning.
+     * @param Player $player Player
      * @return float
      */
-    public function odds(Player $player): float
+    public function сalculatePlayersChancesOfWinning(Player $player): float
     {
         return round($this->getNumberOfCoinsPlayerHas() / ($this->getNumberOfCoinsPlayerHas() + $player->getNumberOfCoinsPlayerHas()) * 100, 2);
     }
