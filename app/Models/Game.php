@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Game
 {
     public Player $player1;
@@ -12,13 +14,13 @@ class Game
         $this->player2 = $player2;
     }
 
-    public function flip() : string
+    public function flip(): string
     {
         // Подбросить монету
-        return rand(0, 1) ? "орел" : "решка"; 
+        return rand(0, 1) ? "орел" : "решка";
     }
 
-    public function start()
+    public function start(): void
     {
         echo <<<EOT
         {$this->player1->name} шансы на победу: {$this->player1->odds($this->player2)}%.
@@ -30,7 +32,7 @@ class Game
 
     public function play()
     {
-        while(true){
+        while (true) {
             // Если орел, п1 получает монету, п2 теряет
             // Если решка п1 теряет монету, п2 получает
             if ($this->flip() == "орел") {
@@ -46,17 +48,15 @@ class Game
 
             $this->flips++;
         }
-        
     }
 
-    public function winner() : Player
+    public function winner(): Player
     {
         //Победитель тот у кого больше монет.
         return $this->player1->bank() > $this->player2->bank() ? $this->player1 : $this->player2;
-        
     }
 
-    public function end() : void
+    public function end(): void
     {
         echo <<<EOT
             Game over.

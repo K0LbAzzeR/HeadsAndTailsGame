@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include_once 'app/Models/Player.php';
 include_once 'app/Models/Game.php';
 

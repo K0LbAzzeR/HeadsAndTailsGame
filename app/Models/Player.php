@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Player
 {
     public string $name;
@@ -11,23 +13,23 @@ class Player
         $this->coins = $coins;
     }
 
-    public function point(Player $player) : void
+    public function point(Player $player): void
     {
         $this->coins++;
         $player->coins--;
     }
 
-    public function bankrupt() : bool
+    public function bankrupt(): bool
     {
         return $this->coins == 0;
     }
 
-    public function bank() : int
+    public function bank(): int
     {
         return $this->coins;
     }
 
-    public function odds(Player $player) : float
+    public function odds(Player $player): float
     {
         return round($this->bank() / ($this->bank() + $player->bank()) * 100, 2);
     }
