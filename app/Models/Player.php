@@ -7,10 +7,10 @@ namespace App\Models;
 class Player
 {
     /**
-     * Имя игрока.
+     * Player name.
      * @var string
      */
-    public string $name;
+    private string $playerName_;
 
     /**
      * Количество монет у игрока.
@@ -23,9 +23,9 @@ class Player
      * @param string $name
      * @param int $coins
      */
-    public function __construct(string $name, int $coins)
+    public function __construct(string $playerName, int $coins)
     {
-        $this->name = $name;
+        $this->setPlayerName($playerName);
         $this->coins = $coins;
     }
 
@@ -66,5 +66,15 @@ class Player
     public function odds(Player $player): float
     {
         return round($this->bank() / ($this->bank() + $player->bank()) * 100, 2);
+    }
+
+    public function getPlayerName(): string
+    {
+        return $this->playerName_;
+    }
+
+    public function setPlayerName(string $playerName_): void
+    {
+        $this->playerName_ = $playerName_;
     }
 }

@@ -53,9 +53,9 @@ class Game
     public function startGame(): void
     {
         ViewGame::showPlayersChancesWinning(
-            $this->player1->name,
+            $this->player1->getPlayerName(),
             $this->player1->odds($this->player2),
-            $this->player2->name,
+            $this->player2->getPlayerName(),
             $this->player2->odds($this->player1)
         );
 
@@ -105,10 +105,10 @@ class Game
         echo <<<EOT
             Game over.
 
-            {$this->player1->name}: {$this->player1->bank()} монет.
-            {$this->player2->name}: {$this->player2->bank()} монет.
+            {$this->player1->getPlayerName()}: {$this->player1->bank()} монет.
+            {$this->player2->getPlayerName()}: {$this->player2->bank()} монет.
 
-            Победитель: {$this->winner()->name}.
+            Победитель: {$this->winner()->getPlayerName()}.
 
             Кол-во подбрасований: {$this->flips}.
         EOT;
