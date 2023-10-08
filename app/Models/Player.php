@@ -13,20 +13,21 @@ class Player
     private string $playerName_;
 
     /**
-     * Количество монет у игрока.
+     * Number of coins the player has.
      * @var int
      */
-    public int $coins;
+    private int $numberOfCoinsPlayerHas_;
 
     /**
-     * Инициализация игрока.
-     * @param string $name
-     * @param int $coins
+     * __construct Player.
+     *
+     * @param string $playerName Player name
+     * @param int $numberOfCoinsPlayerHas Number of coins the player has
      */
-    public function __construct(string $playerName, int $coins)
+    public function __construct(string $playerName, int $numberOfCoinsPlayerHas)
     {
         $this->setPlayerName($playerName);
-        $this->coins = $coins;
+        $this->setNumberOfCoinsPlayerHas($numberOfCoinsPlayerHas);
     }
 
     /**
@@ -36,8 +37,8 @@ class Player
      */
     public function point(Player $player): void
     {
-        $this->coins++;
-        $player->coins--;
+        $this->numberOfCoinsPlayerHas_++;
+        $player->numberOfCoinsPlayerHas_--;
     }
 
     /**
@@ -46,7 +47,7 @@ class Player
      */
     public function bankrupt(): bool
     {
-        return $this->coins == 0;
+        return $this->numberOfCoinsPlayerHas_ == 0;
     }
 
     /**
@@ -55,7 +56,7 @@ class Player
      */
     public function bank(): int
     {
-        return $this->coins;
+        return $this->numberOfCoinsPlayerHas_;
     }
 
     /**
@@ -68,13 +69,45 @@ class Player
         return round($this->bank() / ($this->bank() + $player->bank()) * 100, 2);
     }
 
+    /**
+     * Get player name
+     *
+     * @return string
+     */
     public function getPlayerName(): string
     {
         return $this->playerName_;
     }
 
-    public function setPlayerName(string $playerName_): void
+    /**
+     * Set player name
+     *
+     * @param string $playerName
+     * @return void
+     */
+    public function setPlayerName(string $playerName): void
     {
-        $this->playerName_ = $playerName_;
+        $this->playerName_ = $playerName;
+    }
+
+    /**
+     * Get number of coins the player has
+     *
+     * @return int
+     */
+    public function getNumberOfCoinsPlayerHas(): int
+    {
+        return $this->numberOfCoinsPlayerHas_;
+    }
+
+    /**
+     * Set number of coins the player has
+     *
+     * @param int $numberOfCoinsPlayerHas
+     * @return void
+     */
+    public function setNumberOfCoinsPlayerHas(int $numberOfCoinsPlayerHas): void
+    {
+        $this->numberOfCoinsPlayerHas_ = $numberOfCoinsPlayerHas;
     }
 }
