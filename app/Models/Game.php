@@ -9,16 +9,16 @@ use App\View\ViewGame;
 class Game
 {
     /**
-     * Игрок номер один.
+     * First player.
      * @var Player
      */
-    public Player $player1;
+    public Player $firstPlayer;
 
     /**
-     * Игрок номер два.
+     * Second player.
      * @var Player
      */
-    public Player $player2;
+    public Player $secondPlayer;
 
     /**
      * Количество подбрасований.
@@ -27,14 +27,14 @@ class Game
     protected int $flips = 1;
 
     /**
-     * Инициализация игры.
+     * __construct Game.
      * @param Player $player1
      * @param Player $player2
      */
     public function __construct(Player $player1, Player $player2)
     {
-        $this->player1 = $player1;
-        $this->player2 = $player2;
+        $this->firstPlayer = $player1;
+        $this->secondPlayer = $player2;
     }
 
     /**
@@ -53,10 +53,10 @@ class Game
     public function startGame(): void
     {
         ViewGame::showPlayersChancesWinning(
-            $this->player1->getPlayerName(),
-            $this->player1->сalculatePlayersChancesOfWinning($this->player2),
-            $this->player2->getPlayerName(),
-            $this->player2->сalculatePlayersChancesOfWinning($this->player1)
+            $this->firstPlayer->getPlayerName(),
+            $this->firstPlayer->сalculatePlayersChancesOfWinning($this->secondPlayer),
+            $this->secondPlayer->getPlayerName(),
+            $this->secondPlayer->сalculatePlayersChancesOfWinning($this->firstPlayer)
         );
 
         $this->play();
@@ -72,13 +72,13 @@ class Game
             // Если орел, п1 получает монету, п2 теряет
             // Если решка п1 теряет монету, п2 получает
             if ($this->flip() == "орел") {
-                $this->player1->сhangeNumberOfCoinsPlayersHave($this->player2);
+                $this->firstPlayer->сhangeNumberOfCoinsPlayersHave($this->secondPlayer);
             } else {
-                $this->player2->сhangeNumberOfCoinsPlayersHave($this->player1);
+                $this->secondPlayer->сhangeNumberOfCoinsPlayersHave($this->firstPlayer);
             }
 
             // Если у кого-то кол-во монет будет 0, то игра окончена.
-            if ($this->player1->isPlayerBankrupt() || $this->player2->isPlayerBankrupt()) {
+            if ($this->firstPlayer->isPlayerBankrupt() || $this->secondPlayer->isPlayerBankrupt()) {
                 return $this->end();
             }
 
@@ -93,7 +93,7 @@ class Game
      */
     public function winner(): Player
     {
-        return $this->player1->getNumberOfCoinsPlayerHas() > $this->player2->getNumberOfCoinsPlayerHas() ? $this->player1 : $this->player2;
+        return $this->firstPlayer->getNumberOfCoinsPlayerHas() > $this->secondPlayer->getNumberOfCoinsPlayerHas() ? $this->firstPlayer : $this->secondPlayer;
     }
 
     /**
@@ -105,8 +105,8 @@ class Game
         echo <<<EOT
             Game over.
 
-            {$this->player1->getPlayerName()}: {$this->player1->getNumberOfCoinsPlayerHas()} монет.
-            {$this->player2->getPlayerName()}: {$this->player2->getNumberOfCoinsPlayerHas()} монет.
+            {$this->firstPlayer->getPlayerName()}: {$this->firstPlayer->getNumberOfCoinsPlayerHas()} монет.
+            {$this->secondPlayer->getPlayerName()}: {$this->secondPlayer->getNumberOfCoinsPlayerHas()} монет.
 
             Победитель: {$this->winner()->getPlayerName()}.
 
