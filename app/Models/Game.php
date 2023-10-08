@@ -12,19 +12,19 @@ class Game
      * First player.
      * @var Player
      */
-    public Player $firstPlayer;
+    public Player $firstPlayer_;
 
     /**
      * Second player.
      * @var Player
      */
-    public Player $secondPlayer;
+    public Player $secondPlayer_;
 
     /**
-     * Количество подбрасований.
+     * Number of tosses.
      * @var int
      */
-    protected int $flips = 1;
+    protected int $numberOfTosses_ = 1;
 
     /**
      * __construct Game.
@@ -33,8 +33,8 @@ class Game
      */
     public function __construct(Player $player1, Player $player2)
     {
-        $this->firstPlayer = $player1;
-        $this->secondPlayer = $player2;
+        $this->firstPlayer_ = $player1;
+        $this->secondPlayer_ = $player2;
     }
 
     /**
@@ -53,10 +53,10 @@ class Game
     public function startGame(): void
     {
         ViewGame::showPlayersChancesWinning(
-            $this->firstPlayer->getPlayerName(),
-            $this->firstPlayer->сalculatePlayersChancesOfWinning($this->secondPlayer),
-            $this->secondPlayer->getPlayerName(),
-            $this->secondPlayer->сalculatePlayersChancesOfWinning($this->firstPlayer)
+            $this->firstPlayer_->getPlayerName(),
+            $this->firstPlayer_->сalculatePlayersChancesOfWinning($this->secondPlayer_),
+            $this->secondPlayer_->getPlayerName(),
+            $this->secondPlayer_->сalculatePlayersChancesOfWinning($this->firstPlayer_)
         );
 
         $this->play();
@@ -72,17 +72,17 @@ class Game
             // Если орел, п1 получает монету, п2 теряет
             // Если решка п1 теряет монету, п2 получает
             if ($this->flip() == "орел") {
-                $this->firstPlayer->сhangeNumberOfCoinsPlayersHave($this->secondPlayer);
+                $this->firstPlayer_->сhangeNumberOfCoinsPlayersHave($this->secondPlayer_);
             } else {
-                $this->secondPlayer->сhangeNumberOfCoinsPlayersHave($this->firstPlayer);
+                $this->secondPlayer_->сhangeNumberOfCoinsPlayersHave($this->firstPlayer_);
             }
 
             // Если у кого-то кол-во монет будет 0, то игра окончена.
-            if ($this->firstPlayer->isPlayerBankrupt() || $this->secondPlayer->isPlayerBankrupt()) {
+            if ($this->firstPlayer_->isPlayerBankrupt() || $this->secondPlayer_->isPlayerBankrupt()) {
                 return $this->end();
             }
 
-            $this->flips++;
+            $this->numberOfTosses_++;
         }
     }
 
@@ -93,7 +93,7 @@ class Game
      */
     public function winner(): Player
     {
-        return $this->firstPlayer->getNumberOfCoinsPlayerHas() > $this->secondPlayer->getNumberOfCoinsPlayerHas() ? $this->firstPlayer : $this->secondPlayer;
+        return $this->firstPlayer_->getNumberOfCoinsPlayerHas() > $this->secondPlayer_->getNumberOfCoinsPlayerHas() ? $this->firstPlayer_ : $this->secondPlayer_;
     }
 
     /**
@@ -105,12 +105,63 @@ class Game
         echo <<<EOT
             Game over.
 
-            {$this->firstPlayer->getPlayerName()}: {$this->firstPlayer->getNumberOfCoinsPlayerHas()} монет.
-            {$this->secondPlayer->getPlayerName()}: {$this->secondPlayer->getNumberOfCoinsPlayerHas()} монет.
+            {$this->firstPlayer_->getPlayerName()}: {$this->firstPlayer_->getNumberOfCoinsPlayerHas()} монет.
+            {$this->secondPlayer_->getPlayerName()}: {$this->secondPlayer_->getNumberOfCoinsPlayerHas()} монет.
 
             Победитель: {$this->winner()->getPlayerName()}.
 
-            Кол-во подбрасований: {$this->flips}.
+            Кол-во подбрасований: {$this->numberOfTosses_}.
         EOT;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getFirstPlayer(): Player
+    {
+        return $this->firstPlayer_;
+    }
+
+    /**
+     * @param Player $firstPlayer_
+     * @return void
+     */
+    public function setFirstPlayer(Player $firstPlayer_): void
+    {
+        $this->firstPlayer_ = $firstPlayer_;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getSecondPlayer(): Player
+    {
+        return $this->secondPlayer_;
+    }
+
+    /**
+     * @param Player $secondPlayer_
+     * @return void
+     */
+    public function setSecondPlayer(Player $secondPlayer_): void
+    {
+        $this->secondPlayer_ = $secondPlayer_;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfTosses(): int
+    {
+        return $this->numberOfTosses_;
+    }
+
+    /**
+     * @param int $numberOfTosses_
+     * @return void
+     */
+    public function setNumberOfTosses(int $numberOfTosses_): void
+    {
+        $this->numberOfTosses_ = $numberOfTosses_;
     }
 }
