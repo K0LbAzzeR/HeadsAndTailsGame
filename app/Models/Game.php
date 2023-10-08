@@ -78,7 +78,7 @@ class Game
             }
 
             // Если у кого-то кол-во монет будет 0, то игра окончена.
-            if ($this->player1->bankrupt() || $this->player2->bankrupt()) {
+            if ($this->player1->isPlayerBankrupt() || $this->player2->isPlayerBankrupt()) {
                 return $this->end();
             }
 

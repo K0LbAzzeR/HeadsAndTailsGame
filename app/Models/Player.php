@@ -42,12 +42,12 @@ class Player
     }
 
     /**
-     * Проверка на банкротсво игрока.
+     * Player bankrupt.
      * @return bool
      */
-    public function bankrupt(): bool
+    public function isPlayerBankrupt(): bool
     {
-        return $this->numberOfCoinsPlayerHas_ == 0;
+        return $this->getNumberOfCoinsPlayerHas() == 0;
     }
 
     /**
