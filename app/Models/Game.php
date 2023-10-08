@@ -93,7 +93,7 @@ class Game
      */
     public function winner(): Player
     {
-        return $this->player1->bank() > $this->player2->bank() ? $this->player1 : $this->player2;
+        return $this->player1->getNumberOfCoinsPlayerHas() > $this->player2->getNumberOfCoinsPlayerHas() ? $this->player1 : $this->player2;
     }
 
     /**
@@ -105,8 +105,8 @@ class Game
         echo <<<EOT
             Game over.
 
-            {$this->player1->getPlayerName()}: {$this->player1->bank()} монет.
-            {$this->player2->getPlayerName()}: {$this->player2->bank()} монет.
+            {$this->player1->getPlayerName()}: {$this->player1->getNumberOfCoinsPlayerHas()} монет.
+            {$this->player2->getPlayerName()}: {$this->player2->getNumberOfCoinsPlayerHas()} монет.
 
             Победитель: {$this->winner()->getPlayerName()}.
 

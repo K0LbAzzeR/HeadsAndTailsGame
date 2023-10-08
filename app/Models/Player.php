@@ -51,22 +51,13 @@ class Player
     }
 
     /**
-     * Количество монет у игрока.
-     * @return int
-     */
-    public function bank(): int
-    {
-        return $this->numberOfCoinsPlayerHas_;
-    }
-
-    /**
      * Шанс победы у игрока.
      * @param Player $player
      * @return float
      */
     public function odds(Player $player): float
     {
-        return round($this->bank() / ($this->bank() + $player->bank()) * 100, 2);
+        return round($this->getNumberOfCoinsPlayerHas() / ($this->getNumberOfCoinsPlayerHas() + $player->getNumberOfCoinsPlayerHas()) * 100, 2);
     }
 
     /**
