@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\View\ViewGame;
+
 class Game
 {
     /**
@@ -45,15 +47,17 @@ class Game
     }
 
     /**
-     * Старт игры.
+     * Start Game.
      * @return void
      */
-    public function start(): void
+    public function startGame(): void
     {
-        echo <<<EOT
-        {$this->player1->name} шансы на победу: {$this->player1->odds($this->player2)}%.
-        {$this->player2->name} шансы на победу: {$this->player2->odds($this->player1)}%.
-        EOT;
+        ViewGame::showPlayersChancesWinning(
+            $this->player1->name,
+            $this->player1->odds($this->player2),
+            $this->player2->name,
+            $this->player2->odds($this->player1)
+        );
 
         $this->play();
     }

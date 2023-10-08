@@ -12,4 +12,4 @@ $game = new Game(
     new Player("Jane", 100),
 );
 
-$game->start();
+$game->startGame();
