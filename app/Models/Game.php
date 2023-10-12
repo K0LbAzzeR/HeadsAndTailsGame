@@ -77,19 +77,45 @@ class Game
     public function startingGameProcess(): NULL
     {
         while (true) {
-            if ($this->tossCoin() == "eagle") {
-                $this->getFirstPlayer()->сhangeNumberOfCoinsPlayersHave($this->getSecondPlayer());
-            } else {
-                $this->getSecondPlayer()->сhangeNumberOfCoinsPlayersHave($this->getFirstPlayer());
-            }
+            $this->tossCoin() == "eagle" ? $this->changeNumberOfCoinsForFirstPlayer() : $this->changeNumberOfCoinsForSecondPlayer();
 
-            // Если у кого-то кол-во монет будет 0, то игра окончена.
+            // If someone has 0 coins, then the game is over.
             if ($this->getFirstPlayer()->isPlayerBankrupt() || $this->getSecondPlayer()->isPlayerBankrupt()) {
                 return $this->endGame();
             }
 
-            $this->setNumberOfTosses($this->getNumberOfTosses()+1);
+            $this->increaseNumberOfTosses();
         }
+    }
+
+    /**
+     * Change the number of coins for the first player
+     *
+     * @return void
+     */
+    public function changeNumberOfCoinsForFirstPlayer(): void
+    {
+        $this->getFirstPlayer()->сhangeNumberOfCoinsPlayersHave($this->getSecondPlayer());
+    }
+
+    /**
+     * Change the number of coins for the second player
+     *
+     * @return void
+     */
+    public function changeNumberOfCoinsForSecondPlayer(): void
+    {
+        $this->getSecondPlayer()->сhangeNumberOfCoinsPlayersHave($this->getFirstPlayer());
+    }
+
+    /**
+     * Increase the number of tosses
+     *
+     * @return void
+     */
+    public function increaseNumberOfTosses(): void
+    {
+        $this->setNumberOfTosses($this->getNumberOfTosses()+1);
     }
 
     /**
