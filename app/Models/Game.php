@@ -85,7 +85,7 @@ class Game
 
             // Если у кого-то кол-во монет будет 0, то игра окончена.
             if ($this->getFirstPlayer()->isPlayerBankrupt() || $this->getSecondPlayer()->isPlayerBankrupt()) {
-                return $this->end();
+                return $this->endGame();
             }
 
             $this->setNumberOfTosses($this->getNumberOfTosses()+1);
@@ -103,11 +103,11 @@ class Game
     }
 
     /**
-     * Вывод результаты игры.
+     * End game.
      *
      * @return void
      */
-    public function end(): void
+    public function endGame(): void
     {
         ViewGameResults::showGameResults(
             $this->getFirstPlayer()->getPlayerName(),
@@ -120,6 +120,8 @@ class Game
     }
 
     /**
+     * Get first player
+     *
      * @return Player
      */
     public function getFirstPlayer(): Player
@@ -128,6 +130,8 @@ class Game
     }
 
     /**
+     * Set first player
+     *
      * @param Player $firstPlayer_
      * @return void
      */
@@ -137,6 +141,8 @@ class Game
     }
 
     /**
+     * Get second player
+     *
      * @return Player
      */
     public function getSecondPlayer(): Player
@@ -145,6 +151,8 @@ class Game
     }
 
     /**
+     * Set second player
+     *
      * @param Player $secondPlayer_
      * @return void
      */
@@ -154,6 +162,8 @@ class Game
     }
 
     /**
+     * Get number of tosses
+     *
      * @return int
      */
     public function getNumberOfTosses(): int
@@ -162,6 +172,8 @@ class Game
     }
 
     /**
+     * Set number of tosses
+     *
      * @param int $numberOfTosses_
      * @return void
      */
