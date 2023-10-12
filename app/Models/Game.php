@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\View\ViewGame;
+use App\View\ViewGameResults;
 
 class Game
 {
@@ -92,12 +93,11 @@ class Game
     }
 
     /**
-     * Кто победитель?
-     * Побеждает тот у кого больше монет.
+     * Get a winner. The one with the most coins wins
      *
      * @return Player
      */
-    public function winner(): Player
+    public function getWinner(): Player
     {
         return $this->getFirstPlayer()->getNumberOfCoinsPlayerHas() > $this->getSecondPlayer()->getNumberOfCoinsPlayerHas() ? $this->getFirstPlayer() : $this->getSecondPlayer();
     }
@@ -109,16 +109,14 @@ class Game
      */
     public function end(): void
     {
-        echo <<<EOT
-            Game over.
-
-            {$this->getFirstPlayer()->getPlayerName()}: {$this->getFirstPlayer()->getNumberOfCoinsPlayerHas()} монет.
-            {$this->getSecondPlayer()->getPlayerName()}: {$this->getSecondPlayer()->getNumberOfCoinsPlayerHas()} монет.
-
-            Победитель: {$this->winner()->getPlayerName()}.
-
-            Кол-во подбрасований: {$this->getNumberOfTosses()}.
-        EOT;
+        ViewGameResults::showGameResults(
+            $this->getFirstPlayer()->getPlayerName(),
+            $this->getFirstPlayer()->getNumberOfCoinsPlayerHas(),
+            $this->getSecondPlayer()->getPlayerName(),
+            $this->getSecondPlayer()->getNumberOfCoinsPlayerHas(),
+            $this->getWinner()->getPlayerName(),
+            $this->getNumberOfTosses()
+        );
     }
 
     /**
